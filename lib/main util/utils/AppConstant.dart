@@ -26,10 +26,10 @@ const isDarkModeOnPref = 'isDarkModeOnPref';
 const dateFormat = 'MMM dd, yyyy';
 
 const BaseUrl = 'https://iqonic.design/themeforest-images/prokit';
-const SourceCodeUrl = 'https://codecanyon.net/item/prokit-flutter-app-ui-design-templete-kit/25787190?s_rank=11';
+const SourceCodeUrl = 'https://github.com/manipoint/imagine_colers';
 const PlayStoreUrl = 'https://play.google.com/store/apps/details?id=';
 const DocumentationUrl = 'https://iqonic.design/docs/product/prokit-flutter/';
-const ChangeLogsUrl = 'https://iqonic.design/docs/product/prokit-flutter/updates/change-logs/';
+const ChangeLogsUrl = 'https://github.com/manipoint/imagine_colers/releases';
 const MimikCloneUrl = 'https://codecanyon.net/item/mimik-multi-category-flutter-app-ui-kit-clone/29382568?s_rank=2';
 
 const bannerAdIdForAndroidRelease = "ca-app-pub-1399327544318575/5026584528";

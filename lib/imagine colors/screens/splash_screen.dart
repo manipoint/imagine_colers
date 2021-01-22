@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:imagine_colers/imagine%20colors/screens/walk_through.dart';
+import 'package:imagine_colers/imagine%20colors/utilitis/ic_images.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ICSplashScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _ICSplashScreenState extends State<ICSplashScreen> {
   init() async {
     Timer(Duration(seconds: 2), () {
       finish(context);
-      ICSplashScreen().launch(context);
+      ICWalkThroughScreen().launch(context);
     });
   }
 
@@ -34,7 +35,7 @@ class _ICSplashScreenState extends State<ICSplashScreen> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          'images/IClogo.png',
+          ICAppLogo,
           height: 220,
           width: 220,
           //color: Colors.green.withOpacity(0.7),

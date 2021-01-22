@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:imagine_colers/imagine%20colors/model/ic_model.dart';
 
-import 'bh_images.dart';
+import 'ic_images.dart';
 import 'ic_constent.dart';
 
 List<ICBestSpecialModel> getSpecialList() {

@@ -1,5 +1,14 @@
+import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:flutter/widgets.dart';
+import 'package:imagine_colers/imagine%20colors/utilitis/ic_images.dart';
+import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
+import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
 import 'package:imagine_colers/main%20util/utils/AppWidget.dart';
+
+import 'login_screen.dart';
 
 class ICWalkThroughScreen extends StatefulWidget {
   static String tag = '/walkThroughScreen';
@@ -38,11 +47,130 @@ class _ICWalkThroughScreenState extends State<ICWalkThroughScreen> {
             children: [
               Column(
                 children: [
-                 // commonCacheImageWidget(ICWalkThroughImg1, context.height() * 0.7, width: context.width(), fit: BoxFit.cover),
+                  // Image.asset(
+                  //     ICWalkThroughImg1, context.height() * 0.7,
+                  //     width: context.width(), fit: BoxFit.cover),
+                  Image.asset(ICWalkThroughImg1,height: context.height()*0.7,width:context.width(),fit: BoxFit.cover,),
+                  16.height,
+                  Text(
+                    ICWalkThroughTitle1,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: ICAppTextColorPrimary),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(ICWalkThroughSubTitle1,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: ICAppTextColorSecondary)),
+                  ),
                 ],
-              )
+              ),
+              Column(
+                children: [
+                  // commonCacheImageWidget(
+                  //     ICWalkThroughImg2, context.height() * 0.7,
+                  //     width: context.width(), fit: BoxFit.cover),
+                  Image.asset(ICWalkThroughImg2,height: context.height()*0.7,width:context.width(),fit: BoxFit.cover,),
+                  16.height,
+                  Text(
+                    ICWalkThroughTitle2,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: ICAppTextColorPrimary),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(ICWalkThroughSubTitle2,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: ICAppTextColorSecondary)),
+                  ),
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  // commonCacheImageWidget(
+                  //     ICWalkThroughImg3, context.height() * 0.7,
+                  //     width: context.width(), fit: BoxFit.cover),
+                  Image.asset(ICWalkThroughImg3,height: context.height()*0.7,width:context.width(),fit: BoxFit.cover,),
+                  16.height,
+                  Text(
+                    ICWalkThroughTitle2,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: ICAppTextColorPrimary),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(ICWalkThroughSubTitle3,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: ICAppTextColorSecondary)),
+                  ),
+                ],
+              ),
             ],
-          )
+          ),
+          Positioned(
+              bottom: 90,
+              child: Container(
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                child: DotsIndicator(
+                  dotsCount: 3,
+                  position: currentPage,
+                  decorator: DotsDecorator(
+                      color: ICGreyColor.withOpacity(0.5),
+                      activeColor: ICColorPrimary,
+                      size: Size.square(9.0),
+                      activeSize: Size(18.0, 9.0),
+                      activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0))),
+                ),
+              )),
+          Positioned(
+              bottom: 16,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FlatButton(
+                    onPressed: () {
+                      finish(context);
+                      
+                      ICLoginScreen().launch(context);
+                    },
+                    child: Text('Skip',
+                        style: TextStyle(color: ICAppTextColorSecondary)),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      _controller.nextPage(duration: _duration, curve: _curve);
+                    },
+                    child: Text(ICBtnNext,
+                        style: TextStyle(color: ICAppTextColorSecondary)),
+                  )
+                ],
+              ).visible(currentPage != 2,
+                  defaultWidget: Container(
+                    margin: EdgeInsets.only(),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: 250,
+                        height: 40,
+                        child: RaisedButton(onPressed: (){
+                          
+                        }),
+                      ),
+                    ),
+                  )))
         ],
       ),
     );
