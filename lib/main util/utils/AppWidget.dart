@@ -81,7 +81,7 @@ Future<List<LatLngAndGeohash>> getListOfLatLngAndGeoHash(
     BuildContext context) async {
   try {
     final fakeList = await loadDataFromJson(context);
-    List<LatLngAndGeohash> myPoints = List();
+    List<LatLngAndGeohash> myPoints = [];
     for (int i = 0; i < fakeList.length; i++) {
       final fakePoint = fakeList[i];
       final p = LatLngAndGeohash(

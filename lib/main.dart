@@ -1,6 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
+import 'imagine colors/providers/auth_provider.dart';
 import 'imagine colors/screens/splash_screen.dart';
 import 'main util/store/AppStore.dart';
 import 'main util/utils/AppConstant.dart';
@@ -11,10 +14,15 @@ AppStore appStore = AppStore();
 void main() async {
   //region Entry Point
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   appStore.toggleDarkMode(value: await getBool(isDarkModeOnPref));
 
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider.value(
+      value: AuthProvider.initialize(),
+    ),
+  ], child: MyApp()));
   //endregion
 }
 

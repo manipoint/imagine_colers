@@ -1,12 +1,17 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:imagine_colers/imagine%20colors/helper/constent.dart';
+import 'package:imagine_colers/imagine%20colors/helper/loading.dart';
+import 'package:imagine_colers/imagine%20colors/providers/auth_provider.dart';
+import 'package:imagine_colers/imagine%20colors/screens/dashboard_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_images.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
 import 'package:imagine_colers/main%20util/utils/AppWidget.dart';
+import 'package:provider/provider.dart';
 
 import 'login_screen.dart';
 
@@ -50,7 +55,12 @@ class _ICWalkThroughScreenState extends State<ICWalkThroughScreen> {
                   // Image.asset(
                   //     ICWalkThroughImg1, context.height() * 0.7,
                   //     width: context.width(), fit: BoxFit.cover),
-                  Image.asset(ICWalkThroughImg1,height: context.height()*0.7,width:context.width(),fit: BoxFit.cover,),
+                  Image.asset(
+                    ICWalkThroughImg1,
+                    height: context.height() * 0.7,
+                    width: context.width(),
+                    fit: BoxFit.cover,
+                  ),
                   16.height,
                   Text(
                     ICWalkThroughTitle1,
@@ -73,7 +83,12 @@ class _ICWalkThroughScreenState extends State<ICWalkThroughScreen> {
                   // commonCacheImageWidget(
                   //     ICWalkThroughImg2, context.height() * 0.7,
                   //     width: context.width(), fit: BoxFit.cover),
-                  Image.asset(ICWalkThroughImg2,height: context.height()*0.7,width:context.width(),fit: BoxFit.cover,),
+                  Image.asset(
+                    ICWalkThroughImg2,
+                    height: context.height() * 0.7,
+                    width: context.width(),
+                    fit: BoxFit.cover,
+                  ),
                   16.height,
                   Text(
                     ICWalkThroughTitle2,
@@ -96,7 +111,12 @@ class _ICWalkThroughScreenState extends State<ICWalkThroughScreen> {
                   // commonCacheImageWidget(
                   //     ICWalkThroughImg3, context.height() * 0.7,
                   //     width: context.width(), fit: BoxFit.cover),
-                  Image.asset(ICWalkThroughImg3,height: context.height()*0.7,width:context.width(),fit: BoxFit.cover,),
+                  Image.asset(
+                    ICWalkThroughImg3,
+                    height: context.height() * 0.7,
+                    width: context.width(),
+                    fit: BoxFit.cover,
+                  ),
                   16.height,
                   Text(
                     ICWalkThroughTitle2,
@@ -143,8 +163,8 @@ class _ICWalkThroughScreenState extends State<ICWalkThroughScreen> {
                   FlatButton(
                     onPressed: () {
                       finish(context);
-                      
-                      ICLoginScreen().launch(context);
+                      AppPagesController().launch(context);
+                      //ICLoginScreen().launch(context);
                     },
                     child: Text('Skip',
                         style: TextStyle(color: ICAppTextColorSecondary)),
@@ -165,14 +185,56 @@ class _ICWalkThroughScreenState extends State<ICWalkThroughScreen> {
                       child: Container(
                         width: 250,
                         height: 40,
-                        child: RaisedButton(onPressed: (){
-                          
-                        }),
+                        child: RaisedButton(onPressed: () {}),
                       ),
                     ),
                   )))
         ],
       ),
+    );
+  }
+}
+
+class AppPagesController extends StatelessWidget {
+  // const AppPagesController({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    return FutureBuilder(
+      future: initialization,
+      builder: (context, snapshot) {
+        //checking errors
+        if (snapshot.hasError) {
+          return Scaffold(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text("SomeThing went Wrong")],
+            ),
+          );
+        }
+        //show application
+        if (snapshot.connectionState == ConnectionState.done) {
+          print(authProvider.status.toString());
+          switch (authProvider.status) {
+            case Status.Uninitialized:
+              return Loading();
+            case Status.Unauthenticated:
+            case Status.Authenticating:
+              return ICLoginScreen();
+            case Status.Authenticated:
+              return ICDashedBoardScreen();
+          }
+        }
+        return Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -33,7 +33,7 @@ List<ICBestSpecialModel> getSpecialNewList() {
 
 
 List<ICSpecialOfferModel> getSpecialOfferList() {
-  List<ICSpecialOfferModel> specialOfferList = List<ICSpecialOfferModel>();
+  List<ICSpecialOfferModel> specialOfferList = <ICSpecialOfferModel>[];
   specialOfferList.add(ICSpecialOfferModel(img: ICdDashedBoardImage5, title: 'Joseph Salon', subtitle: 'Cool Summer Event'));
   specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage3, title: 'Sherman Hair ', subtitle: 'Cool Winter Event'));
   specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage6, title: 'Drake Hair Salon', subtitle: 'Cool Winter Event'));
@@ -46,7 +46,7 @@ List<ICSpecialOfferModel> getSpecialOfferList() {
 }
 
 List<ICSpecialOfferModel> getSpecialOfferNewList() {
-  List<ICSpecialOfferModel> specialOfferList = List<ICSpecialOfferModel>();
+  List<ICSpecialOfferModel> specialOfferList = <ICSpecialOfferModel>[];
   specialOfferList.add(ICSpecialOfferModel(img: ICdDashedBoardImage5, title: 'Joseph Drake Hair Salon', subtitle: 'Cool Summer Event'));
   specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage3, title: 'Sherman Barber Hair Salon', subtitle: 'Cool Winter Event'));
   specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage6, title: 'Joseph Drake Hair Salon', subtitle: 'Cool Winter Event'));
@@ -56,7 +56,7 @@ List<ICSpecialOfferModel> getSpecialOfferNewList() {
 }
 
 List<MessageModel> getMessageList() {
-  List<MessageModel> messageList = List<MessageModel>();
+  List<MessageModel> messageList = <MessageModel>[];
   messageList.add(MessageModel(img: ICDashedBoardImage3, name: 'Sherman Barber Shop', message: 'Hi Jackson..', lastSeen: 'Now'));
   messageList.add(MessageModel(img: ICDashedBoardImage2, name: 'Dale Horward', message: 'Thank you.', lastSeen: '8:30 AM'));
   messageList.add(MessageModel(img: ICDashedBoardImage6, name: 'Norah Beauty Salon', message: 'Hello', lastSeen: 'Yesterday'));
@@ -64,7 +64,7 @@ List<MessageModel> getMessageList() {
 }
 
 List<ICCallModel> getCallList() {
-  List<ICCallModel> callList = List<ICCallModel>();
+  List<ICCallModel> callList = <ICCallModel>[];
   callList.add(
     ICCallModel(
       img: ICDashedBoardImage3,
@@ -132,7 +132,7 @@ List<ICCategoryModel> getCategory() {
   categoryList.add(ICCategoryModel(img: ICHomeCare, categoryName: 'Home Desig'));
   categoryList.add(ICCategoryModel(img: ICMug, categoryName: 'Mug Prainting'));
   categoryList.add(ICCategoryModel(img: ICMobileCare, categoryName: 'Mobile Care'));
-  categoryList.add(ICCategoryModel(img: ICKeyChain, categoryName: 'Key'));
+  //categoryList.add(ICCategoryModel(img: ICKeyChain, categoryName: 'Key'));
 
   return categoryList;
 }

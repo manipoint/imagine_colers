@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:imagine_colers/imagine%20colors/screens/registration_screen.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_images.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import 'forget_password.dart';
 
 class ICLoginScreen extends StatefulWidget {
   static String tag = '/LoginScreen';
@@ -100,8 +102,8 @@ class _ICLoginScreenState extends State<ICLoginScreen> {
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
-                          //TODO
-                          //ICForgotPasswordScreen().launch(context);
+                        
+                          ICForgotPasswordScreen().launch(context);
                         },
                         child: Text(ICTxtForgetPwd,
                             style: TextStyle(
@@ -132,9 +134,13 @@ class _ICLoginScreenState extends State<ICLoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SvgPicture.asset(ICTwitterIcon, height: 40, width: 40),
-                        SvgPicture.asset(ICFacebookIcon, height: 40, width: 40),
-                        SvgPicture.asset(ICPinterestIcon, height: 40, width: 40),
+                        //Image.asset(ICTwitterIcon, height: 40, width: 40),
+                        Image.asset(ICTwitterIcon,height: 40,width: 40,fit: BoxFit.fill,),
+                        Image.asset(ICFacebookIcon,height: 50,width: 50,fit: BoxFit.cover,),
+                        Image.asset(ICGoogleIcon,height: 40,width: 40,fit: BoxFit.fill,),
+
+                        //Image.asset(ICFacebookIcon, height: 40, width: 40),
+                        //Image.asset(ICGoogleIcon, height: 40, width: 40),
                       ],
                     ),
                     24.height,
@@ -142,8 +148,8 @@ class _ICLoginScreenState extends State<ICLoginScreen> {
                       alignment: Alignment.bottomCenter,
                       child: GestureDetector(
                         onTap: () {
-                          //TODO
-                          //ICRegistrationScreen().launch(context);
+                          
+                          ICRegistrationScreen().launch(context);
                         },
                         child: Text.rich(
                           TextSpan(
