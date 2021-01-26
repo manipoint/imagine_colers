@@ -8,58 +8,57 @@ import 'ic_constent.dart';
 
 List<ICBestSpecialModel> getSpecialList() {
   List<ICBestSpecialModel> list = <ICBestSpecialModel>[];
-  list.add(ICBestSpecialModel(title: 'Joseph Drake', subTitle: 'Board Artist', img: ICdDashedBoardImage5));
-  list.add(ICBestSpecialModel(title: 'Dale Horward', subTitle: 'Home Decorator', img: ICDashedBoardImage1));
-  list.add(ICBestSpecialModel(title: 'willies carpen', subTitle: 'Photographer', img: ICDashedBoardImage6));
-  list.add(ICBestSpecialModel(title: 'Dale Horward', subTitle: 'Board Artist', img: ICDashedBoardImage3));
-  list.add(ICBestSpecialModel(title: 'Joseph Drake', subTitle: 'Board Artist', img: ICDashedBoardImage3));
-  list.add(ICBestSpecialModel(title: 'Dale Horward', subTitle: 'Home Decorator', img: ICdDashedBoardImage5));
-  list.add(ICBestSpecialModel(title: 'willies carpen', subTitle: 'Photographer', img: ICDashedBoardImage1));
-  list.add(ICBestSpecialModel(title: 'Dale Horward', subTitle: 'Board Artist', img: ICDashedBoardImage6));
+  list.add(ICBestSpecialModel(title: 'Arfan Latif', subTitle: 'Font Designer', img: ICArfanDp));
+  list.add(ICBestSpecialModel(title: 'Rashid Aslam', subTitle: 'Home Decorator', img: ICRashidDp));
+  list.add(ICBestSpecialModel(title: 'Rehman Ashraf', subTitle: 'Photographer', img: ICRehmanDp));
+  list.add(ICBestSpecialModel(title: 'Imran Latif', subTitle: 'Wall Panelist', img: ICImranDp));
+  list.add(ICBestSpecialModel(title: 'Arfan Latif', subTitle: 'Cushion Designer', img: ICArfanDp));
+  list.add(ICBestSpecialModel(title: 'Imran Latif', subTitle: 'Font Designer', img: ICImranDp));
+  list.add(ICBestSpecialModel(title: 'Arfan Latif', subTitle: 'Photographer', img: ICArfanDp ));
+  list.add(ICBestSpecialModel(title: 'Rashid Aslam', subTitle: 'Board Artist', img: ICRashidDp));
 
   return list;
 }
 
 List<ICBestSpecialModel> getSpecialNewList() {
   List<ICBestSpecialModel> list = <ICBestSpecialModel>[];
-  list.add(ICBestSpecialModel(title: 'Joseph Drake', subTitle: 'Makeup Artist', img: ICdDashedBoardImage5));
-  list.add(ICBestSpecialModel(title: 'Dale Horward', subTitle: 'Hire Stylist', img: ICDashedBoardImage1));
-  list.add(ICBestSpecialModel(title: 'willies carpen', subTitle: 'Barber', img: ICDashedBoardImage6));
-  list.add(ICBestSpecialModel(title: 'Dale Horward', subTitle: 'Makeup Artist', img: ICDashedBoardImage3));
-  list.add(ICBestSpecialModel(title: 'Dale Horward', subTitle: 'Hire Stylist', img: ICDashedBoardImage2));
-  list.add(ICBestSpecialModel(title: 'willies carpen', subTitle: 'Barber', img: ICDashedBoardImage6));
+  list.add(ICBestSpecialModel(title: 'Arfan Latif', subTitle: 'Font Artist', img: ICArfanDp));
+  list.add(ICBestSpecialModel(title: 'Imran Latif', subTitle: 'Photographer', img: ICImranDp ));
+  list.add(ICBestSpecialModel(title: 'Rehman Ashraf', subTitle: 'Wall Artist', img: ICRehmanDp));
+  list.add(ICBestSpecialModel(title: 'Rashid Aslam', subTitle: 'Makeup Artist', img: ICRashidDp));
+
   return list;
 }
 
 
 List<ICSpecialOfferModel> getSpecialOfferList() {
   List<ICSpecialOfferModel> specialOfferList = <ICSpecialOfferModel>[];
-  specialOfferList.add(ICSpecialOfferModel(img: ICdDashedBoardImage5, title: 'Joseph Salon', subtitle: 'Cool Summer Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage3, title: 'Sherman Hair ', subtitle: 'Cool Winter Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage6, title: 'Drake Hair Salon', subtitle: 'Cool Winter Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage7, title: 'Barber Hair ', subtitle: 'Cool Winter Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage1, title: 'Joseph Drake', subtitle: 'Cool Winter Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage6, title: 'Joseph Hair ', subtitle: 'Cool Winter Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage6, title: 'Drake Hair ', subtitle: 'Cool Winter Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICdDashedBoardImage5, title: 'Joseph Hair', subtitle: 'Cool Summer Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICWall1, title: 'Imran Latif', subtitle: 'Cool Summer Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICWall3, title: 'Woow Walls ', subtitle: 'Cool Winter Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICMug, title: 'Chey Shay', subtitle: 'PSL Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICCushion, title: 'Ufff Sardi ', subtitle: 'Cool Winter Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICPhotoghaphy , title: 'Memories..', subtitle: 'Wedding Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICMug, title: 'Gift  ', subtitle: 'Happy Birthday Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICMug, title: 'Pakistan Day ', subtitle: 'Cool Winter Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICWall1, title: 'Independance', subtitle: 'Cool Summer Event'));
   return specialOfferList;
 }
 
 List<ICSpecialOfferModel> getSpecialOfferNewList() {
   List<ICSpecialOfferModel> specialOfferList = <ICSpecialOfferModel>[];
-  specialOfferList.add(ICSpecialOfferModel(img: ICdDashedBoardImage5, title: 'Joseph Drake Hair Salon', subtitle: 'Cool Summer Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage3, title: 'Sherman Barber Hair Salon', subtitle: 'Cool Winter Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage6, title: 'Joseph Drake Hair Salon', subtitle: 'Cool Winter Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage7, title: 'Sherman Barber Hair Salon', subtitle: 'Cool Winter Event'));
-  specialOfferList.add(ICSpecialOfferModel(img: ICDashedBoardImage1, title: 'Joseph Drake Hair Salon', subtitle: 'Cool Winter Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICWall1, title: 'Al-Madina color lab', subtitle: 'Cool Summer Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICWall3, title: 'Imagine Colors', subtitle: 'Cool Winter Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICMug, title: 'Al-Madina color lab', subtitle: 'Cool Winter Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICSign2, title: 'Imagine Colors', subtitle: 'Cool Winter Event'));
+  specialOfferList.add(ICSpecialOfferModel(img: ICPhotoghaphy , title: 'Al-Madina color lab', subtitle: 'Cool Winter Event'));
   return specialOfferList;
 }
 
 List<MessageModel> getMessageList() {
   List<MessageModel> messageList = <MessageModel>[];
-  messageList.add(MessageModel(img: ICDashedBoardImage3, name: 'Sherman Barber Shop', message: 'Hi Jackson..', lastSeen: 'Now'));
-  messageList.add(MessageModel(img: ICDashedBoardImage2, name: 'Dale Horward', message: 'Thank you.', lastSeen: '8:30 AM'));
-  messageList.add(MessageModel(img: ICDashedBoardImage6, name: 'Norah Beauty Salon', message: 'Hello', lastSeen: 'Yesterday'));
+  messageList.add(MessageModel(img: ICWall3, name: 'Imagine Colors', message: 'Hi Arfan..', lastSeen: 'Now'));
+  messageList.add(MessageModel(img: ICWall2, name: 'Naveed', message: 'Thank you.', lastSeen: '8:30 AM'));
+  messageList.add(MessageModel(img: ICMug, name: 'Waheed', message: 'Hello', lastSeen: 'Yesterday'));
   return messageList;
 }
 
@@ -67,7 +66,7 @@ List<ICCallModel> getCallList() {
   List<ICCallModel> callList = <ICCallModel>[];
   callList.add(
     ICCallModel(
-      img: ICDashedBoardImage3,
+      img: ICWall3,
       name: 'Sherman Barber Shop',
       callImg: Icons.call,
       callStatus: 'You call them',
@@ -77,7 +76,7 @@ List<ICCallModel> getCallList() {
   );
   callList.add(
     ICCallModel(
-      img: ICDashedBoardImage4,
+      img: ICWall4,
       name: 'Dale Horward',
       callImg: Icons.call,
       callStatus: 'You miss call',
@@ -87,7 +86,7 @@ List<ICCallModel> getCallList() {
   );
   callList.add(
     ICCallModel(
-      img: ICDashedBoardImage1,
+      img: ICPhotoghaphy ,
       name: 'Dale Horward',
       callImg: Icons.call,
       callStatus: 'You miss call',
@@ -97,7 +96,7 @@ List<ICCallModel> getCallList() {
   );
   callList.add(
     ICCallModel(
-      img: ICDashedBoardImage6,
+      img: ICMug,
       name: 'Dale Horward',
       callImg: Icons.call,
       callStatus: 'You miss call',
@@ -110,29 +109,29 @@ List<ICCallModel> getCallList() {
 
 List<ICGalleryModel> getGalleryList() {
   List<ICGalleryModel> galleryList = <ICGalleryModel>[];
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage1));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage2));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage3));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage6));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage2));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage6));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage2));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage3));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage6));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage1));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage3));
-  galleryList.add(ICGalleryModel(img: ICDashedBoardImage1));
+  galleryList.add(ICGalleryModel(img: ICPhotoghaphy ));
+  galleryList.add(ICGalleryModel(img: ICWall2));
+  galleryList.add(ICGalleryModel(img: ICWall3));
+  galleryList.add(ICGalleryModel(img: ICMug));
+  galleryList.add(ICGalleryModel(img: ICWall2));
+  galleryList.add(ICGalleryModel(img: ICMug));
+  galleryList.add(ICGalleryModel(img: ICWall2));
+  galleryList.add(ICGalleryModel(img: ICWall3));
+  galleryList.add(ICGalleryModel(img: ICMug));
+  galleryList.add(ICGalleryModel(img: ICPhotoghaphy ));
+  galleryList.add(ICGalleryModel(img: ICWall3));
+  galleryList.add(ICGalleryModel(img: ICPhotoghaphy ));
   return galleryList;
 }
 
 List<ICCategoryModel> getCategory() {
   List<ICCategoryModel> categoryList = <ICCategoryModel>[];
   categoryList.add(ICCategoryModel(img: IC3DBoards, categoryName: 'All'));
-  categoryList.add(ICCategoryModel(img: IC3DBoards, categoryName: '3D Boards'));
-  categoryList.add(ICCategoryModel(img: ICHomeCare, categoryName: 'Home Desig'));
+  categoryList.add(ICCategoryModel(img: ICWall2, categoryName: 'Home Desig'));
   categoryList.add(ICCategoryModel(img: ICMug, categoryName: 'Mug Prainting'));
   categoryList.add(ICCategoryModel(img: ICMobileCare, categoryName: 'Mobile Care'));
-  //categoryList.add(ICCategoryModel(img: ICKeyChain, categoryName: 'Key'));
+  categoryList.add(ICCategoryModel(img: IC3DBoards, categoryName: '3D Boards'));
+  categoryList.add(ICCategoryModel(img: ICCushion, categoryName: 'Cushion Prainting'));
 
   return categoryList;
 }
@@ -140,94 +139,96 @@ List<ICCategoryModel> getCategory() {
 List<ICOfferModel> getOfferList() {
   List<ICOfferModel> offerList = <ICOfferModel>[];
   offerList.add(
-    ICOfferModel(img: ICDashedBoardImage1, offerName: 'Personality Girl Event', offerDate: 'June 10 - June 26', offerOldPrice: 100, offerNewPrice: 89),
+    ICOfferModel(img: ICPhotoghaphy , offerName: 'Photoghaphy Event', offerDate: 'June 10 - June 26', offerOldPrice: 20000, offerNewPrice: 10000),
   );
   offerList.add(
-    ICOfferModel(img: ICDashedBoardImage2, offerName: '3d bil board design', offerDate: 'May 10 - May 17', offerOldPrice: 80, offerNewPrice: 70),
+    ICOfferModel(img: ICMug1, offerName: 'Mug Display', offerDate: 'May 10 - May 17', offerOldPrice: 799, offerNewPrice: 499),
   );
   offerList.add(
-    ICOfferModel(img: ICDashedBoardImage3, offerName: 'Personality Girl Event', offerDate: 'Sep 12 - Sep 14', offerOldPrice: 120, offerNewPrice: 109),
+    ICOfferModel(img: ICWall4, offerName: '3d Wall Panels ', offerDate: 'Sep 12 - Sep 14', offerOldPrice: 120, offerNewPrice: 99),
   );
   offerList.add(
-    ICOfferModel(img: ICDashedBoardImage4, offerName: 'Personality Girl Event', offerDate: 'Nov 05 - Nov 13', offerOldPrice: 150, offerNewPrice: 130),
+    ICOfferModel(img: ICCushion, offerName: 'Cushion Design', offerDate: 'Nov 05 - Nov 13', offerOldPrice: 999, offerNewPrice: 799),
   );
   return offerList;
 }
 
 List<ICServicesModel> getServicesList() {
   List<ICServicesModel> servicesList = <ICServicesModel>[];
-  servicesList.add(ICServicesModel(img: ICDashedBoardImage4, serviceName: 'Board Creation', time: '72 Hrs', price: 350000, radioVal: 1));
-  servicesList.add(ICServicesModel(img: ICDashedBoardImage1, serviceName: 'Mobile 9D Covers', time: '10 Min', price: 100, radioVal: 2));
-  servicesList.add(ICServicesModel(img: ICDashedBoardImage3, serviceName: 'Mug Prainting', time: '50 Min', price: 600, radioVal: 3));
-  servicesList.add(ICServicesModel(img: ICdDashedBoardImage5, serviceName: 'Cushion desining', time: '50 Min', price: 700, radioVal: 4));
+  servicesList.add(ICServicesModel(img: ICSign, serviceName: 'Font Panels', time: '72 Hrs', price: 350, radioVal: 1));
+  servicesList.add(ICServicesModel(img: ICMobileCare , serviceName: 'Mobile 9D Covers', time: '10 Min', price: 100, radioVal: 2));
+  servicesList.add(ICServicesModel(img: ICMug, serviceName: 'Mug Prainting', time: '50 Min', price: 799, radioVal: 3));
+  servicesList.add(ICServicesModel(img: ICCushion, serviceName: 'Cushion desining', time: '50 Min', price: 999, radioVal: 4));
+  servicesList.add(ICServicesModel(img: ICWall4, serviceName: '3d Wall Panels', time: '50 Min', price: 120, radioVal: 4));
+  
   return servicesList;
 }
 
 List<ICIncludeServiceModel> getIncludeServicesList() {
   List<ICIncludeServiceModel> servicesList = <ICIncludeServiceModel>[];
-  servicesList.add(ICIncludeServiceModel(serviceImg: ICDashedBoardImage3, serviceName: 'Board Creation', time: '72 Hrs', price: 350000));
-  servicesList.add(ICIncludeServiceModel(serviceImg: ICdDashedBoardImage5, serviceName: 'Key Chain', time: '30 Min', price: 150));
-  servicesList.add(ICIncludeServiceModel(serviceImg: ICDashedBoardImage4, serviceName: 'Mobile Case', time: '10 Min', price: 150));
-  servicesList.add(ICIncludeServiceModel(serviceImg: ICDashedBoardImage1, serviceName: 'Mobile 9D Covers', time: '10 Min', price: 100));
-  servicesList.add(ICIncludeServiceModel(serviceImg: ICDashedBoardImage4, serviceName: 'Cushion desining', time: '50 Min', price: 700));
-  servicesList.add(ICIncludeServiceModel(serviceImg: ICDashedBoardImage1, serviceName: 'Mug Prainting', time: '50 Min', price: 600));
-  servicesList.add(ICIncludeServiceModel(serviceImg: ICDashedBoardImage6, serviceName: 'Plates Printing', time: '50 Min', price: 1000));
-  servicesList.add(ICIncludeServiceModel(serviceImg: ICDashedBoardImage7, serviceName: 'Home Decorations', time: '2 hrs', price: 13000));
+  servicesList.add(ICIncludeServiceModel(serviceImg: ICSign2, serviceName: 'Board Creation', time: '72 Hrs', price: 350));
+  servicesList.add(ICIncludeServiceModel(serviceImg: ICWall1, serviceName: '3d Wall Panels', time: '30 Min', price: 150));
+  servicesList.add(ICIncludeServiceModel(serviceImg: ICCellCase, serviceName: 'Mobile Case', time: '10 Min', price: 950));
+  servicesList.add(ICIncludeServiceModel(serviceImg: ICMobileCare , serviceName: 'Mobile 9D Covers', time: '10 Min', price: 100));
+  servicesList.add(ICIncludeServiceModel(serviceImg: ICCushion, serviceName: 'Cushion desining', time: '50 Min', price: 999));
+  servicesList.add(ICIncludeServiceModel(serviceImg: ICMug , serviceName: 'Mug Prainting', time: '50 Min', price: 799));
+  servicesList.add(ICIncludeServiceModel(serviceImg: ICPlate, serviceName: 'Plates Printing', time: '50 Min', price: 999));
+  servicesList.add(ICIncludeServiceModel(serviceImg: ICPhotoghaphy, serviceName: 'Digital Photogrphy', time: '2 hrs', price: 13000));
   return servicesList;
 }
 
 List<ICReviewModel> getReviewList() {
   List<ICReviewModel> reviewList = <ICReviewModel>[];
-  reviewList.add(ICReviewModel(img: ICDashedBoardImage1, name: 'Carlos Day', rating: 4.5, day: '4 Day ago', review: ICReview));
-  reviewList.add(ICReviewModel(img: ICUserImg, name: 'Sherman', rating: 2.5, day: '10 Day ago', review: ICReview));
-  reviewList.add(ICReviewModel(img: ICUserImg, name: 'Dale Horward', rating: 4, day: '1 Day ago', review: ICReview));
-  reviewList.add(ICReviewModel(img: ICUserImg, name: 'Carlos Day', rating: 3.5, day: '3 Day ago', review: ICReview));
+  reviewList.add(ICReviewModel(img: ICPhotoghaphy , name: 'Carlos Day', rating: 4.5, day: '4 Day ago', review: ICReview));
+  reviewList.add(ICReviewModel(img: ICMug, name: 'Ehsan', rating: 4.5, day: '10 Day ago', review: ICReview));
+  reviewList.add(ICReviewModel(img: ICMug, name: 'Amber', rating: 4, day: '1 Day ago', review: ICReview));
+  reviewList.add(ICReviewModel(img: ICMug, name: 'Naveed', rating: 2.5, day: '3 Day ago', review: ICReview));
   return reviewList;
 }
 
 List<ICStyleModel> getStyleList() {
   List<ICStyleModel> styleList = <ICStyleModel>[];
-  styleList.add(ICStyleModel(img: ICDashedBoardImage4, name: 'Arfan Latif'));
-  styleList.add(ICStyleModel(img: ICDashedBoardImage2, name: 'Rehman'));
-  styleList.add(ICStyleModel(img: ICDashedBoardImage6, name: 'M Zahid'));
-  styleList.add(ICStyleModel(img: ICDashedBoardImage1, name: 'Ch Imran'));
+  styleList.add(ICStyleModel(img: ICWall4, name: 'Arfan Latif'));
+  styleList.add(ICStyleModel(img: ICWall2, name: 'Rehman'));
+  styleList.add(ICStyleModel(img: ICMug, name: 'M Zahid'));
+  styleList.add(ICStyleModel(img: ICPhotoghaphy , name: 'Ch Imran'));
   return styleList;
 }
 
 List<ICBoardStyleModel> getBoardStyleList() {
   List<ICBoardStyleModel> boardStyleList = <ICBoardStyleModel>[];
-  boardStyleList.add(ICBoardStyleModel(img: ICDashedBoardImage3, name: 'Arfan Latif'));
-  boardStyleList.add(ICBoardStyleModel(img: ICDashedBoardImage4, name: 'Rehman '));
-  boardStyleList.add(ICBoardStyleModel(img: ICdDashedBoardImage5, name: 'M Zahid'));
-  boardStyleList.add(ICBoardStyleModel(img: ICDashedBoardImage1, name: 'Ch Imran'));
+  boardStyleList.add(ICBoardStyleModel(img: ICWall3, name: 'Arfan Latif'));
+  boardStyleList.add(ICBoardStyleModel(img: ICWall4, name: 'Rehman '));
+  boardStyleList.add(ICBoardStyleModel(img: ICWall1, name: 'M Zahid'));
+  boardStyleList.add(ICBoardStyleModel(img: ICPhotoghaphy , name: 'Ch Imran'));
   return boardStyleList;
 }
 
 List<ICNotificationModel> getNotificationList() {
   List<ICNotificationModel> notificationList = <ICNotificationModel>[];
-  notificationList.add(ICNotificationModel(img: ICDashedBoardImage6, name: 'Sherman Shop', msg: 'Hi Jackson..', status: 'Just Now', callInfo: ICCallIcon));
-  notificationList.add(ICNotificationModel(img: ICDashedBoardImage2, name: 'Dale Horward', msg: 'Thank you.', status: '8:30 AM', callInfo: ICMessage));
-  notificationList.add(ICNotificationModel(img: ICDashedBoardImage3, name: 'Norah  Salon', msg: 'Hello', status: 'Yesterday', callInfo: ICCallIcon));
-  notificationList.add(ICNotificationModel(img: ICDashedBoardImage4, name: 'Norah Beauty', msg: 'Sent you a message', status: 'Tomorrow', callInfo: ICMessage));
+  notificationList.add(ICNotificationModel(img: ICMug, name: 'Sherman Shop', msg: 'Hi Jackson..', status: 'Just Now', callInfo: ICCallIcon));
+  notificationList.add(ICNotificationModel(img: ICWall2, name: 'Dale Horward', msg: 'Thank you.', status: '8:30 AM', callInfo: ICMessage));
+  notificationList.add(ICNotificationModel(img: ICWall3, name: 'Norah  Salon', msg: 'Hello', status: 'Yesterday', callInfo: ICCallIcon));
+  notificationList.add(ICNotificationModel(img: ICWall4, name: 'Norah Beauty', msg: 'Sent you a message', status: 'Tomorrow', callInfo: ICMessage));
   return notificationList;
 }
 
 List<ICNotifyModel> getNotifyList() {
   List<ICNotifyModel> notifyList = <ICNotifyModel>[];
   notifyList.add(
-    ICNotifyModel(img: ICDashedBoardImage4, name: 'Al-Madian color and Fonts', address: 'Buldia road Chishtian.', rating: 4.5, distance: 7.5),
+    ICNotifyModel(img: ICWall4, name: 'Al-Madian color and Fonts', address: 'Buldia road Chishtian.', rating: 4.5, distance: 7.5),
   );
   notifyList.add(
-    ICNotifyModel(img: ICDashedBoardImage1, name: 'Awasome Decorators', address: 'Ch Latif Road Bahwalpur.', rating: 3.5, distance: 14.2),
+    ICNotifyModel(img: ICPhotoghaphy , name: 'Awasome Decorators', address: 'Ch Latif Road Bahwalpur.', rating: 3.5, distance: 14.2),
   );
   notifyList.add(
-    ICNotifyModel(img: ICDashedBoardImage3, name: 'Zahid Fonts', address: 'Sixth Road RawalPindi.', rating: 2.0, distance: 10.0),
+    ICNotifyModel(img: ICWall3, name: 'Zahid Fonts', address: 'Sixth Road RawalPindi.', rating: 2.0, distance: 10.0),
   );
   notifyList.add(
-    ICNotifyModel(img: ICdDashedBoardImage5, name: 'Imagine Colors Font ', address: 'Hall Road Lahore.', rating: 5.0, distance: 17.5),
+    ICNotifyModel(img: ICWall1, name: 'Imagine Colors Font ', address: 'Hall Road Lahore.', rating: 5.0, distance: 17.5),
   );
   notifyList.add(
-    ICNotifyModel(img: ICDashedBoardImage6, name: 'Horward Desinors', address: 'Main korangi road karachi.', rating: 3.5, distance: 11.0),
+    ICNotifyModel(img: ICMug, name: 'Horward Desinors', address: 'Main korangi road karachi.', rating: 3.5, distance: 11.0),
   );
   return notifyList;
 }

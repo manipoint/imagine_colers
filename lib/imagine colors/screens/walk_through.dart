@@ -164,7 +164,7 @@ class _ICWalkThroughScreenState extends State<ICWalkThroughScreen> {
                     onPressed: () {
                       finish(context);
                       AppPagesController().launch(context);
-                      //ICLoginScreen().launch(context);
+                      // ICLoginScreen().launch(context);
                     },
                     child: Text('Skip',
                         style: TextStyle(color: ICAppTextColorSecondary)),
@@ -185,7 +185,11 @@ class _ICWalkThroughScreenState extends State<ICWalkThroughScreen> {
                       child: Container(
                         width: 250,
                         height: 40,
-                        child: RaisedButton(onPressed: () {}),
+                        child: RaisedButton(onPressed: () {
+                          finish(context);
+                          ICLoginScreen().launch(context);
+                          AppPagesController().launch(context);
+                        }),
                       ),
                     ),
                   )))

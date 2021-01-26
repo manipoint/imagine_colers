@@ -6,6 +6,7 @@ import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_images.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import 'dashboard_screen.dart';
 import 'forget_password.dart';
 
 class ICLoginScreen extends StatefulWidget {
@@ -117,8 +118,7 @@ class _ICLoginScreenState extends State<ICLoginScreen> {
                         padding: EdgeInsets.all(12),
                         onPressed: () {
                           finish(context);
-                          //TODO
-                          //ICDashedBoardScreen().launch(context);
+                          ICDashedBoardScreen().launch(context);
                         },
                         color: ICColorPrimary,
                         shape: RoundedRectangleBorder(

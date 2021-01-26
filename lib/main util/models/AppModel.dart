@@ -37,31 +37,31 @@ class AppTheme {
 class ProTheme {
   String name;
   // ignore: non_constant_identifier_names
-  bool show_cover;
+  bool showCover;
   // ignore: non_constant_identifier_names
-  List<ProTheme> sub_kits;
+  List<ProTheme> subKit;
   // ignore: non_constant_identifier_names
-  String title_name;
+  String titleName;
   String type;
   String icon;
   // ignore: non_constant_identifier_names
-  bool is_theme;
+  bool isTheme;
   String tag;
   bool darkThemeSupported;
   Widget widget;
 
-  ProTheme({this.name, this.icon, this.is_theme, this.tag, this.type, this.show_cover, this.sub_kits, this.title_name, this.darkThemeSupported, this.widget});
+  ProTheme({this.name, this.icon, this.isTheme, this.tag, this.type, this.showCover, this.subKit, this.titleName, this.darkThemeSupported, this.widget});
 
   factory ProTheme.fromJson(Map<String, dynamic> json) {
     return ProTheme(
       name: json['name'],
       icon: json['icon'],
-      is_theme: json['is_theme'],
+      isTheme: json['is_theme'],
       tag: json['tag'],
       type: json['type'],
-      show_cover: json['show_cover'],
-      sub_kits: json['sub_kits'] != null ? (json['sub_kits'] as List).map((i) => ProTheme.fromJson(i)).toList() : null,
-      title_name: json['title_name'],
+      showCover: json['show_cover'],
+      subKit: json['subKit'] != null ? (json['subKit'] as List).map((i) => ProTheme.fromJson(i)).toList() : null,
+      titleName: json['titleName'],
       darkThemeSupported: json['darkThemeSupported'],
       widget: json['widget'],
     );
@@ -70,16 +70,16 @@ class ProTheme {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
-    data['show_cover'] = this.show_cover;
-    data['title_name'] = this.title_name;
+    data['show_cover'] = this.showCover;
+    data['titleName'] = this.titleName;
     data['type'] = this.type;
     data['tag'] = this.tag;
     data['darkThemeSupported'] = this.darkThemeSupported;
     data['icon'] = this.icon;
     data['widget'] = this.widget;
-    data['is_theme'] = this.is_theme;
-    if (this.sub_kits != null) {
-      data['sub_kits'] = this.sub_kits.map((v) => v.toJson()).toList();
+    data['is_theme'] = this.isTheme;
+    if (this.subKit != null) {
+      data['subKit'] = this.subKit.map((v) => v.toJson()).toList();
     }
     return data;
   }
