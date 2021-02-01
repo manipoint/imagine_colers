@@ -202,10 +202,10 @@ class NewRegistrationScreenState extends State<ICRegistrationScreen> {
                               padding: EdgeInsets.all(12),
                               onPressed: () async {
                                 if (!await authProvider.signUp()) {
-                                  // Scaffold.of(context).showSnackBar(
-                                  //     SnackBar(
-                                  //         content:
-                                  //             Text("Registration failed!")));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content:
+                                              Text("Registration failed!")));
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
                                     content: const Text('Registration failed!'),

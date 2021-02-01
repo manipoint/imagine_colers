@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:imagine_colers/imagine%20colors/screens/accountInformation_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/appontment_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/discover_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/message_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/notfy_screen.dart';
-import 'package:imagine_colers/imagine%20colors/screens/profile_screen.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
 import 'package:imagine_colers/main%20util/utils/AppWidget.dart';
@@ -22,7 +22,7 @@ class _ICDashedBoardScreenState extends State<ICDashedBoardScreen> {
     ICNotifyScreen(),
     ICAppointmentScreen(),
     ICMessagesScreen(),
-    ICProfileScreen(),
+    ICAccountInformationScreen(),
   ];
   Widget _bottomNavBar() {
     return BottomNavigationBar(

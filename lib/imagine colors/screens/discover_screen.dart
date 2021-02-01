@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:imagine_colers/imagine%20colors/helper/loading.dart';
 import 'package:imagine_colers/imagine%20colors/providers/auth_provider.dart';
 import 'package:imagine_colers/imagine%20colors/screens/detail_screen.dart';
+import 'package:imagine_colers/imagine%20colors/screens/notification_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/spacialist_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/specialOffer_screen.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
@@ -9,7 +9,6 @@ import 'package:imagine_colers/imagine%20colors/utilitis/ic_dataProvider.dart';
 import 'package:imagine_colers/main%20util/utils/AppWidget.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:imagine_colers/imagine%20colors/model/ic_model.dart';
-import 'package:imagine_colers/imagine%20colors/screens/notfy_screen.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
 import 'package:provider/provider.dart';
 
@@ -43,6 +42,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              4.height,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -54,7 +54,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                         color: ICColorPrimary),
                   ),
                   Text(
-                    userProvider.userModel?.name ?? Loading(),
+                    userProvider.userModel?.name ?? 'loading ...',
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                     child: Icon(Icons.notifications,
                         color: ICColorPrimary, size: 28),
                     onTap: () {
-                      ICNotifyScreen().launch(context);
+                      ICNotificationScreen().launch(context);
                     },
                   ),
                 ],
