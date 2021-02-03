@@ -688,7 +688,7 @@ class _ICDetailScreenState extends State<ICDetailScreen> {
                 },
               ),
             ),
-            Text(ICTxtBestSpecialists,
+            Text(ICTxtFeatureProducts,
                 style: TextStyle(
                     color: ICAppTextColorPrimary,
                     fontWeight: FontWeight.bold,

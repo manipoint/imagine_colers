@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'imagine colors/providers/auth_provider.dart';
+import 'imagine colors/providers/product_provider.dart';
 import 'imagine colors/screens/splash_screen.dart';
 import 'main util/store/AppStore.dart';
 import 'main util/utils/AppConstant.dart';
@@ -21,6 +22,9 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(
       value: AuthProvider.initialize(),
+    ),
+      ChangeNotifierProvider.value(
+      value: ICProductProviders.initialize(),
     ),
   ], child: MyApp()));
   //endregion

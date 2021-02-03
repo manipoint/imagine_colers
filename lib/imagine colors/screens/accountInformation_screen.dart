@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imagine_colers/imagine%20colors/providers/auth_provider.dart';
+import 'package:imagine_colers/imagine%20colors/screens/dashboard_screen.dart';
+import 'package:imagine_colers/imagine%20colors/screens/discover_screen.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_images.dart';
@@ -40,6 +42,7 @@ class ICAccountInformationScreenState
           leading: GestureDetector(
             onTap: () {
               finish(context);
+              ICDashedBoardScreen().launch(context);
             },
             child: Icon(Icons.arrow_back, color: blackColor),
           ),
@@ -54,12 +57,13 @@ class ICAccountInformationScreenState
               child: Align(
                 alignment: Alignment.center,
                 child: InkWell(
-                    child: Text(ICTxtEdit,
-                        style: TextStyle(
-                            color: ICColorPrimary,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold)),
-                            onTap: (){},),
+                  child: Text(ICTxtEdit,
+                      style: TextStyle(
+                          color: ICColorPrimary,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold)),
+                  onTap: () {},
+                ),
               ),
             )
           ]),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imagine_colers/imagine%20colors/providers/auth_provider.dart';
+import 'package:imagine_colers/imagine%20colors/providers/product_provider.dart';
 import 'package:imagine_colers/imagine%20colors/screens/detail_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/notification_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/spacialist_screen.dart';
@@ -7,6 +8,7 @@ import 'package:imagine_colers/imagine%20colors/screens/specialOffer_screen.dart
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_dataProvider.dart';
 import 'package:imagine_colers/main%20util/utils/AppWidget.dart';
+import 'package:imagine_colers/main%20util/utils/flutter_rating_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:imagine_colers/imagine%20colors/model/ic_model.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
@@ -35,6 +37,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<AuthProvider>(context);
+    final productProvider = Provider.of<ICProductProviders>(context);
     return Scaffold(
       body: Container(
         child: SingleChildScrollView(
@@ -133,7 +136,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(ICTxtBestSpecialists,
+                  Text(ICTxtFeatureProducts,
                       style: TextStyle(
                           fontSize: 16,
                           color: ICAppTextColorPrimary,
@@ -154,13 +157,12 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                 height: 210,
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 8),
-                  itemCount: specialList.length,
+                  itemCount: productProvider.products.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                      
                         ICDetailScreen().launch(context);
                       },
                       child: Card(
@@ -175,30 +177,56 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                             ClipRRect(
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10)),
-                              //TODO change picture
                               child: commonCacheImageWidget(
-                                  specialList[index].img, 100,
+                                  productProvider.products[index].picture, 100,
                                   width: 200, fit: BoxFit.cover),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                specialList[index].title,
+                                productProvider.products[index].name
+                                    .capitalizeFirstLetter(),
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: ICAppTextColorPrimary,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                specialList[index].subTitle,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: ICAppTextColorSecondary,
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    productProvider.products[index].review
+                                        .capitalizeFirstLetter(),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ICAppTextColorSecondary,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                12.width,
+                                RatingBar(
+                                  onRatingUpdate: (rating) {},
+                                  initialRating:
+                                      productProvider.products[index].rating,
+                                  glow: true,
+                                  ignoreGestures: true,
+                                  glowColor: ICGreyColor,
+                                  direction: Axis.horizontal,
+                                  itemCount: 5,
+                                  itemSize: 16,
+                                  allowHalfRating: true,
+                                  minRating: 1,
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 4),
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: ICColorPrimary,
+                                  ),
+                                ),
+                              ],
                             )
                           ],
                         ),
@@ -372,7 +400,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
   }
 
   void sendTextData(BuildContext context) {
-    String textData = 'Best SpecialLists';
+    String textData = 'All Products';
     ICSpecialListViewAllScreen(
       specialList: textData,
     ).launch(context);

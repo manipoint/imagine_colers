@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:imagine_colers/imagine%20colors/model/ic_model.dart';
+import 'package:imagine_colers/imagine%20colors/providers/product_provider.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
-import 'package:imagine_colers/imagine%20colors/utilitis/ic_dataProvider.dart';
 import 'package:imagine_colers/main%20util/utils/AppWidget.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
 import 'detail_screen.dart';
 
@@ -21,15 +21,32 @@ class ICSpecialListViewAllScreen extends StatefulWidget {
 
 class ICSpecialListViewAllScreenState
     extends State<ICSpecialListViewAllScreen> {
-  List<ICBestSpecialModel> bestSpecialList;
+  
 
   @override
-  void initState() {
-    super.initState();
-    bestSpecialList = getSpecialList();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: whiteColor,
+        title: Text(widget.specialList,
+            style: TextStyle(
+                color: ICAppTextColorPrimary,
+                fontSize: 16,
+                fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+            finish(context);
+          },
+          child: Icon(Icons.arrow_back, color: blackColor),
+        ),
+      ),
+      body: specialListViewAllWidget(context),
+    );
   }
 
-  Widget specialListViewAllWidget() {
+  Widget specialListViewAllWidget(BuildContext context) {
+    final productProvider = Provider.of<ICProductProviders>(context);
     return Container(
       // padding: EdgeInsets.all(16),
       child: GridView.builder(
@@ -37,7 +54,7 @@ class ICSpecialListViewAllScreenState
             crossAxisCount: 2, crossAxisSpacing: 8.0, mainAxisSpacing: 8.0),
         padding: EdgeInsets.all(16),
         shrinkWrap: true,
-        itemCount: bestSpecialList.length,
+        itemCount: productProvider.products.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
@@ -63,7 +80,7 @@ class ICSpecialListViewAllScreenState
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10)),
                     child: commonCacheImageWidget(
-                        bestSpecialList[index].img, 110,
+                        productProvider.products[index].picture, 140,
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.cover),
                   ),
@@ -71,7 +88,7 @@ class ICSpecialListViewAllScreenState
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
-                      bestSpecialList[index].title,
+                      productProvider.products[index].name.capitalizeFirstLetter(),
                       style: TextStyle(
                           fontSize: 16,
                           color: ICAppTextColorPrimary,
@@ -81,7 +98,8 @@ class ICSpecialListViewAllScreenState
                   SizedBox(height: 5),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(bestSpecialList[index].subTitle,
+                    child: Text(
+                        "RS ${productProvider.products[index].price.toString()}",
                         style: TextStyle(
                             fontSize: 14, color: ICAppTextColorSecondary)),
                   ),
@@ -91,28 +109,6 @@ class ICSpecialListViewAllScreenState
           );
         },
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: whiteColor,
-        title: Text(widget.specialList,
-            style: TextStyle(
-                color: ICAppTextColorPrimary,
-                fontSize: 16,
-                fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
-            finish(context);
-          },
-          child: Icon(Icons.arrow_back, color: blackColor),
-        ),
-      ),
-      body: specialListViewAllWidget(),
     );
   }
 }

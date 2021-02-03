@@ -206,10 +206,10 @@ List<ICBoardStyleModel> getBoardStyleList() {
 
 List<ICNotificationModel> getNotificationList() {
   List<ICNotificationModel> notificationList = <ICNotificationModel>[];
-  notificationList.add(ICNotificationModel(img: ICMug, name: 'Sherman Shop', msg: 'Hi Jackson..', status: 'Just Now', callInfo: ICCallIcon));
+  notificationList.add(ICNotificationModel(img: ICMug, name: 'Adnan Shreef', msg: 'Hi Dear..', status: 'Just Now', callInfo: ICCallIcon));
   notificationList.add(ICNotificationModel(img: ICWall2, name: 'Dale Horward', msg: 'Thank you.', status: '8:30 AM', callInfo: ICMessage));
-  notificationList.add(ICNotificationModel(img: ICWall3, name: 'Norah  Salon', msg: 'Hello', status: 'Yesterday', callInfo: ICCallIcon));
-  notificationList.add(ICNotificationModel(img: ICWall4, name: 'Norah Beauty', msg: 'Sent you a message', status: 'Tomorrow', callInfo: ICMessage));
+  notificationList.add(ICNotificationModel(img: ICWall3, name: 'Al-Madina color leb', msg: 'Hello', status: 'Yesterday', callInfo: ICCallIcon));
+  notificationList.add(ICNotificationModel(img: ICWall4, name: 'Faiz Khan', msg: 'Sent you a message', status: 'Tomorrow', callInfo: ICMessage));
   return notificationList;
 }
 

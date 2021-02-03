@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:html/parser.dart';
+import 'package:imagine_colers/imagine%20colors/helper/loading.dart';
 import 'package:imagine_colers/main%20util/models/ListModels.dart';
 import 'package:imagine_colers/main%20util/store/AppStore.dart';
 import 'package:imagine_colers/main%20util/utils/common.dart';
@@ -249,7 +250,7 @@ Function(BuildContext, String) placeholderWidgetFn() =>
     (_, s) => placeholderWidget();
 
 Widget placeholderWidget() =>
-    Image.asset('images/LikeButton/grey.png', fit: BoxFit.cover,);
+    Loading();
 
 BoxConstraints dynamicBoxConstraints({double maxWidth}) {
   return BoxConstraints(maxWidth: maxWidth ?? applicationMaxWidth);
@@ -259,27 +260,6 @@ double dynamicWidth(BuildContext context) {
   return isMobile ? context.width() : applicationMaxWidth;
 }
 
-/*class ContainerX extends StatelessWidget {
-  static String tag = '/ContainerX';
-  final BuildContext context;
-  final double maxWidth;
-  final Widget child;
-
-  ContainerX({@required this.context, this.maxWidth, @required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: context.width(),
-      height: context.height(),
-      child: ConstrainedBox(
-        constraints: dynamicBoxConstraints(maxWidth: maxWidth),
-        child: child,
-      ),
-      alignment: Alignment.topCenter,
-    );
-  }
-}*/
 
 String getBannerAdUnitId() {
   if (kReleaseMode) {
