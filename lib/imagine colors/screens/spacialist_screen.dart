@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imagine_colers/imagine%20colors/providers/product_provider.dart';
+import 'package:imagine_colers/imagine%20colors/providers/spacialist_provider.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
 import 'package:imagine_colers/main%20util/utils/AppWidget.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -21,8 +21,6 @@ class ICSpecialListViewAllScreen extends StatefulWidget {
 
 class ICSpecialListViewAllScreenState
     extends State<ICSpecialListViewAllScreen> {
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,15 +44,15 @@ class ICSpecialListViewAllScreenState
   }
 
   Widget specialListViewAllWidget(BuildContext context) {
-    final productProvider = Provider.of<ICProductProviders>(context);
+    final specialistProvider = Provider.of<IcSpecialistProvider>(context);
     return Container(
-      // padding: EdgeInsets.all(16),
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, crossAxisSpacing: 8.0, mainAxisSpacing: 8.0),
+            crossAxisCount: 2, crossAxisSpacing: 10.0, mainAxisSpacing: 10.0),
         padding: EdgeInsets.all(16),
         shrinkWrap: true,
-        itemCount: productProvider.products.length,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: specialistProvider.products.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
@@ -75,34 +73,44 @@ class ICSpecialListViewAllScreenState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)),
-                    child: commonCacheImageWidget(
-                        productProvider.products[index].picture, 140,
-                        width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.cover),
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10)),
+                      child: commonCacheImageWidget(
+                          specialistProvider.products[index].picture, 180,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover),
+                    ),
                   ),
-                  SizedBox(height: 8),
+                
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
-                      productProvider.products[index].name.capitalizeFirstLetter(),
+                      specialistProvider.products[index].name
+                          .capitalizeFirstLetter(),
                       style: TextStyle(
                           fontSize: 16,
                           color: ICAppTextColorPrimary,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                        "RS ${productProvider.products[index].price.toString()}",
+                  SizedBox(height: 4),
+                  for (int i = 0;
+                      i < specialistProvider.products[index].profession.length;
+                      i++)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, top: 2,bottom: 4),
+                      child: Text(
+                        specialistProvider.products[index].profession[i]
+                            .toString(),
                         style: TextStyle(
-                            fontSize: 14, color: ICAppTextColorSecondary)),
-                  ),
+                          fontSize: 12,
+                          color: ICAppTextColorSecondary,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),

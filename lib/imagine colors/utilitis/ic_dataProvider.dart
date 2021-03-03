@@ -141,9 +141,9 @@ List<ICOfferModel> getOfferList() {
   offerList.add(
     ICOfferModel(img: ICPhotoghaphy , offerName: 'Photoghaphy Event', offerDate: 'June 10 - June 26', offerOldPrice: 20000, offerNewPrice: 10000),
   );
-  offerList.add(
-    ICOfferModel(img: ICMug1, offerName: 'Mug Display', offerDate: 'May 10 - May 17', offerOldPrice: 799, offerNewPrice: 499),
-  );
+  // offerList.add(
+  //   ICOfferModel(img: ICPlate, offerName: 'Mug Display', offerDate: 'May 10 - May 17', offerOldPrice: 799, offerNewPrice: 499),
+  // );
   offerList.add(
     ICOfferModel(img: ICWall4, offerName: '3d Wall Panels ', offerDate: 'Sep 12 - Sep 14', offerOldPrice: 120, offerNewPrice: 99),
   );

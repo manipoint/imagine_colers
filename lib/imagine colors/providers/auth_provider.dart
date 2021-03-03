@@ -1,9 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:imagine_colers/imagine%20colors/helper/constent.dart';
+import 'package:imagine_colers/imagine%20colors/model/chekout_model.dart';
+import 'package:imagine_colers/imagine%20colors/model/order_model.dart';
+import 'package:imagine_colers/imagine%20colors/model/product_model.dart';
 import 'package:imagine_colers/imagine%20colors/model/user_model.dart';
+import 'package:imagine_colers/imagine%20colors/services/order_services.dart';
 import 'package:imagine_colers/imagine%20colors/services/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 
@@ -11,13 +16,17 @@ class AuthProvider with ChangeNotifier {
   User _user;
   Status _status = Status.Uninitialized;
   UserServices _userServices = UserServices();
+  OrderServices _orderServices = OrderServices();
   UserModel _userModel;
 
   //gettter
 
   UserModel get userModel => _userModel;
+
   Status get status => _status;
   User get user => _user;
+
+  List<OrderModel> orders = [];
 
   // public variables
 
@@ -123,6 +132,55 @@ class AuthProvider with ChangeNotifier {
         return value;
       });
     }
+    notifyListeners();
+  }
+
+  Future<bool> addToChekout({ProductModel product}) async {
+    try {
+      var uuid = Uuid();
+      String chekoutItemId = uuid.v4();
+      List<ChekoutModel> cart = _userModel.chekout;
+
+      Map chekoutItem = {
+        "id": chekoutItemId,
+        "name": product.name,
+        "image": product.picture,
+        "productId": product.id,
+        "price": product.price,
+      };
+
+      ChekoutModel item = ChekoutModel.fromMap(chekoutItem);
+
+      print("CART ITEMS ARE: ${cart.toString()}");
+      _userServices.addToChekout(userId: _user.uid, chekoutItem: item);
+
+      return true;
+    } catch (e) {
+      print("THE ERROR ${e.toString()}");
+      return false;
+    }
+  }
+
+  Future<bool> removeFromChekout({ChekoutModel chekoutItem}) async {
+    print("THE PRODUC remove from: ${chekoutItem.toString()}");
+
+    try {
+      _userServices.removeFromChekout(
+          userId: _user.uid, chekoutItem: chekoutItem);
+      return true;
+    } catch (e) {
+      print("THE ERROR ${e.toString()}");
+      return false;
+    }
+  }
+
+  getOrders() async {
+    orders = await _orderServices.getUserOrders(userId: _user.uid);
+    notifyListeners();
+  }
+
+  Future<void> reloadUserModel() async {
+    _userModel = await _userServices.getUserById(user.uid);
     notifyListeners();
   }
 

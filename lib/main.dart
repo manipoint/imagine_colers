@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:imagine_colers/imagine%20colors/providers/spacialist_provider.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'imagine colors/providers/auth_provider.dart';
@@ -26,6 +27,8 @@ void main() async {
       ChangeNotifierProvider.value(
       value: ICProductProviders.initialize(),
     ),
+    ChangeNotifierProvider.value(
+      value: IcSpecialistProvider.initialize(),),
   ], child: MyApp()));
   //endregion
 }

@@ -1,10 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:imagine_colers/imagine%20colors/helper/loading.dart';
+import 'package:imagine_colers/imagine%20colors/providers/auth_provider.dart';
 import 'package:imagine_colers/imagine%20colors/screens/packageOffer_creen.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_images.dart';
-import 'package:imagine_colers/imagine%20colors/utilitis/ic_widgets.dart';
+import 'package:imagine_colers/main%20util/utils/AppDialogs.dart';
+import 'package:imagine_colers/main%20util/utils/AppWidget.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
+import 'package:stripe_payment/stripe_payment.dart';
+import 'package:http/http.dart' as http;
 
 class ICBookAppointmentScreen extends StatefulWidget {
   static String tag = '/BookAppointmentScreen';
@@ -14,39 +23,40 @@ class ICBookAppointmentScreen extends StatefulWidget {
 }
 
 class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
-  DateTime dateTime;
+  String textPay = '';
+  final String key =
+      "pk_test_51IHmF2CQgLNnTozRRG3K9HncX2GfkaQ54fPG0mjJcIs9RvlOq87BFxbzocLlGUMRweUSJlMhIPS6TDVxCZ39TWCH002XCfqYMH";
   int currentStep = 0;
-  int _radioVal = 0;
   Color likeButtonColor = whiteColor;
+  double totalCost = 0.0;
+  double tax = 0.0;
+  double taxPercent = 0.1;
+  int amount = 0;
+  bool showSpinner = false;
+  String paymentUrl =
+      'https://us-central1-imagine-colors.cloudfunctions.net/StripePI';
 
-  void someThing(int value) {
-    setState(() {
-      _radioVal = value;
-    });
-  }
-
-  _pickDate() async {
-    DateTime time = await showDatePicker(
-      context: context,
-      initialDate: dateTime,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
-    );
-    if (time != null) {
-      setState(() {
-        dateTime = time;
-      });
-    }
+  double getPayment({double totalCast}) {
+    final provider = Provider.of<AuthProvider>(context, listen: false);
+    double totalAmount = totalCast;
+    totalAmount = provider.userModel.totalPrice;
+    return totalAmount;
   }
 
   @override
   void initState() {
     super.initState();
-    dateTime = DateTime.now();
+    getPayment();
+    StripePayment.setOptions(StripeOptions(
+        publishableKey: key,
+        merchantId: 'MERCHANT_ID',
+        androidPayMode: "test"));
   }
 
   @override
   Widget build(BuildContext context) {
+    //final productProvide = Provider.of<ICProductProviders>(context);
+    final userProvider = Provider.of<AuthProvider>(context);
     Map<int, Color> color = {
       50: Color.fromRGBO(136, 14, 79, .1),
       100: Color.fromRGBO(136, 14, 79, .2),
@@ -68,58 +78,26 @@ class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
           child: Column(
             children: [
               Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: whiteColor,
-                  boxShadow: [
-                    BoxShadow(
-                        color: ICGreyColor.withOpacity(0.3),
-                        offset: Offset(0.0, 1.0),
-                        blurRadius: 2.0)
-                  ],
-                ),
-                child: ListTile(
-                  title: Text(
-                      'Date : ${dateTime.day}/ ${dateTime.month}/ ${dateTime.year}',
-                      style: TextStyle(color: ICAppTextColorSecondary)),
-                  trailing: Icon(Icons.keyboard_arrow_down,
-                      color: ICAppTextColorSecondary),
-                  onTap: () => _pickDate(),
-                ),
-              ),
-              Container(
-                height: 220,
+                height: 600,
                 margin: EdgeInsets.only(top: 8),
                 padding: EdgeInsets.all(8),
                 color: whiteColor,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          ICTxtChooseSpecialList,
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: ICAppTextColorPrimary,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          ICTxtStylists,
-                          style: TextStyle(
-                              color: ICColorPrimary,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                    Text(
+                      "Products",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: ICColorPrimary,
+                          fontWeight: FontWeight.bold),
                     ),
                     8.height,
                     Container(
-                      height: 177,
+                      height: 550,
                       child: ListView.builder(
-                        itemCount: 6,
-                        scrollDirection: Axis.horizontal,
+                        itemCount: userProvider.userModel.chekout.length,
+                        scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
                           return Card(
                             shape: RoundedRectangleBorder(
@@ -128,25 +106,86 @@ class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10)),
-                                  child: Image.asset(ICMug1,
-                                      height: 110,
-                                      width: 120,
-                                      fit: BoxFit.cover),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10)),
+                                      child: commonCacheImageWidget(
+                                          userProvider
+                                              .userModel.chekout[index].image,
+                                          180,
+                                          width: 160,
+                                          fit: BoxFit.cover),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(8),
+                                          child: Text(
+                                            userProvider.userModel.name
+                                                .capitalizeFirstLetter(),
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: ICAppTextColorSecondary,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 16, left: 16),
+                                          child: Text(
+                                            "RS ${userProvider.userModel.chekout[index].price.toString()}",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: ICColorPrimary,
+                                            ),
+                                          ),
+                                        ),
+                                        32.height,
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 28.0, top: 32),
+                                          child: RaisedButton(
+                                              onPressed: () async {
+                                                bool success = await userProvider
+                                                    .removeFromChekout(
+                                                        chekoutItem:
+                                                            userProvider
+                                                                    .userModel
+                                                                    .chekout[
+                                                                index]);
+                                                if (success) {
+                                                  userProvider
+                                                      .reloadUserModel();
+                                                  Loading();
+                                                } else {
+                                                  Loading();
+                                                }
+                                                //                await userProvider.addToChekout(
+                                                // product: productProvider.products[index],;
+                                              },
+                                              color: ICColorPrimary,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              child: Text("Remove",
+                                                  style: TextStyle(
+                                                      color: whiteColor,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold))),
+                                        )
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.all(8),
-                                  child: Text(
-                                    'Adnan Shreef',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: ICAppTextColorSecondary,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                )
                               ],
                             ),
                           );
@@ -156,32 +195,6 @@ class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
                   ],
                 ),
               ),
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(8),
-                  margin: EdgeInsets.only(top: 8),
-                  color: whiteColor,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(ICTxtAvailableSlot,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: ICAppTextColorPrimary,
-                                fontWeight: FontWeight.bold)),
-                        8.height,
-                        Wrap(
-                          spacing: 16.0,
-                          children: [
-                            raiseButton(btnText: '7:30 - 8:30 AM'),
-                            raiseButton(btnText: '9:30 - 10:30 AM'),
-                            raiseButton(btnText: '4:30 - 5:30 AM'),
-                            raiseButton(btnText: '6:30 - 7:30 AM'),
-                            raiseButton(btnText: '1:30 - 2:30 AM'),
-                            raiseButton(btnText: '3:30 - 4:30 AM'),
-                          ],
-                        ),
-                      ]))
             ],
           ),
         ),
@@ -191,111 +204,131 @@ class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('Book Appointment',
+        title: Text('ChekOut',
             style: TextStyle(
                 color: ICAppTextColorPrimary,
                 fontSize: 16,
                 fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
-      body: Theme(
-        data: ThemeData(primarySwatch: MaterialColor(0xFFff6e40, color)),
-        child: Stepper(
-          type: StepperType.horizontal,
-          physics: BouncingScrollPhysics(),
-          controlsBuilder: (context, {onStepCancel, onStepContinue}) =>
-              Container(
-            margin: EdgeInsets.only(top: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: Theme(
+          data: ThemeData(primarySwatch: MaterialColor(0xFFff6e40, color)),
+          child: Stepper(
+            type: StepperType.horizontal,
+            physics: BouncingScrollPhysics(),
+            controlsBuilder: (context, {onStepCancel, onStepContinue}) =>
                 Container(
-                  width: 140,
-                  child: RaisedButton(
-                    onPressed: () {
-                      if (currentStep < 2) {
-                        setState(() {
-                          currentStep += 1;
-                        });
-                      } else {
-                        currentStep = 0;
-                      }
-                    },
-                    color: ICColorPrimary,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Text(
-                      ICBtnContinue,
-                      style: TextStyle(
-                          color: whiteColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 140,
-                  child: RaisedButton(
-                    onPressed: () {
-                      if (currentStep > 0) {
-                        setState(() {
-                          currentStep -= 1;
-                        });
-                      } else {
-                        currentStep = 0;
-                        finish(context);
-                      }
-                    },
-                    color: ICColorPrimary,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Text(ICBtnCancel,
+              margin: EdgeInsets.only(top: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 140,
+                    child: RaisedButton(
+                      onPressed: () {
+                        switch (currentStep) {
+                          case 0:
+                            setState(() {
+                              print("case 0 current step is $currentStep ");
+                              currentStep += 1;
+                              checkIfNativePayReady();
+                            });
+                            return;
+                          default:
+                            if (currentStep < 2) {
+                              setState(() {
+                                print(
+                                    "case defult current step is $currentStep ");
+
+                                currentStep += 1;
+                              });
+                            } else {
+                              currentStep = 0;
+                            }
+                        }
+                      },
+                      color: ICColorPrimary,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Text(
+                        ICBtnContinue,
                         style: TextStyle(
                             color: whiteColor,
                             fontSize: 15,
-                            fontWeight: FontWeight.bold)),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-                )
-              ],
+                  Container(
+                    width: 140,
+                    child: RaisedButton(
+                      onPressed: () {
+                        if (currentStep > 0) {
+                          setState(() {
+                            currentStep -= 1;
+                          });
+                        } else {
+                          currentStep = 0;
+                          finish(context);
+                        }
+                      },
+                      color: ICColorPrimary,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Text(ICBtnCancel,
+                          style: TextStyle(
+                              color: whiteColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  )
+                ],
+              ),
             ),
+            steps: [
+              Step(
+                  title: Text(ICStepperBookAppointment,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: ICAppTextColorSecondary)),
+                  content: Container(
+                    child: appointmentStepper(),
+                  ),
+                  isActive: currentStep >= 0,
+                  state: currentStep >= 0
+                      ? StepState.complete
+                      : StepState.disabled),
+              Step(
+                  title: Text(ICStepperPayment,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: ICAppTextColorSecondary)),
+                  content: paymentStepper(),
+                  isActive: currentStep >= 0,
+                  state: currentStep >= 2
+                      ? StepState.complete
+                      : StepState.disabled),
+              Step(
+                title: Text(ICStepperFinished,
+                    style: TextStyle(color: ICAppTextColorSecondary)),
+                content: finishedStepper(),
+                isActive: currentStep >= 0,
+                state:
+                    currentStep >= 2 ? StepState.complete : StepState.disabled,
+              ),
+            ],
+            currentStep: currentStep,
+            onStepTapped: (value) {
+              currentStep = value;
+            },
           ),
-          steps: [
-            Step(
-                title: Text(ICStepperBookAppointment,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: ICAppTextColorSecondary)),
-                content: Container(
-                  child: appointmentStepper(),
-                ),
-                isActive: currentStep >= 0,
-                state:
-                    currentStep >= 0 ? StepState.complete : StepState.disabled),
-            Step(
-                title: Text(ICStepperPayment,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: ICAppTextColorSecondary)),
-                content: paymentStepper(),
-                isActive: currentStep >= 0,
-                state:
-                    currentStep >= 2 ? StepState.complete : StepState.disabled),
-            Step(
-              title: Text(ICStepperFinished,
-                  style: TextStyle(color: ICAppTextColorSecondary)),
-              content: finishedStepper(),
-              isActive: currentStep >= 0,
-              state: currentStep >= 2 ? StepState.complete : StepState.disabled,
-            ),
-          ],
-          currentStep: currentStep,
-          onStepTapped: (value) {
-            currentStep = value;
-          },
         ),
       ),
     );
   }
 
   Widget paymentStepper() {
+    final userProvide = Provider.of<AuthProvider>(context);
     return SingleChildScrollView(
       child: Container(
         color: ICGreyColor.withOpacity(.1),
@@ -304,7 +337,7 @@ class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Services',
+              'Product',
               style: TextStyle(
                   color: ICAppTextColorPrimary, fontWeight: FontWeight.bold),
             ),
@@ -396,7 +429,10 @@ class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
                                   fontSize: 14, color: ICAppTextColorPrimary)),
                           Padding(
                               padding: EdgeInsets.only(left: 45),
-                              child: Text('Rs 250',
+                              child: Text(
+                                  userProvide.userModel.totalPrice
+                                      .ceil()
+                                      .toString(),
                                   style: TextStyle(fontSize: 14))),
                         ],
                       ),
@@ -416,7 +452,10 @@ class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
                                   fontSize: 14,
                                   color: ICAppTextColorPrimary,
                                   fontWeight: FontWeight.bold)),
-                          Text('RS 250',
+                          Text(
+                              userProvide.userModel.totalPrice
+                                  .ceil()
+                                  .toString(),
                               style: TextStyle(
                                   fontSize: 14,
                                   color: ICColorPrimary,
@@ -437,74 +476,77 @@ class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
                         fontSize: 14,
                         color: ICAppTextColorPrimary,
                         fontWeight: FontWeight.bold)),
-                Text(ICTxtAddMethod,
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: ICColorPrimary,
-                        fontWeight: FontWeight.bold)),
+                TextButton(
+                    onPressed: () {
+                      createPaymentMethod();
+                    },
+                    child: Text(
+                      ICTxtAddMethod,
+                      style: TextStyle(color: ICColorPrimary),
+                    )),
               ],
             ),
             8.height,
-            Container(
-              margin: EdgeInsets.only(top: 8),
-              color: whiteColor,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(ICVisaCardImg, height: 40, width: 40),
-                        16.width,
-                        Text('**** **** *123',
-                            style: TextStyle(color: ICAppTextColorPrimary)),
-                      ],
-                    ),
-                    Radio(
-                        value: 0,
-                        groupValue: _radioVal,
-                        activeColor: ICColorPrimary,
-                        onChanged: (value) => someThing(value)),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(top: 8),
-              color: whiteColor,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(ICMasterCardImg, height: 40, width: 40),
-                        16.width,
-                        Text('**** **** *333',
-                            style: TextStyle(color: ICAppTextColorPrimary)),
-                      ],
-                    ),
-                    Radio(
-                      value: 1,
-                      groupValue: _radioVal,
-                      activeColor: ICColorPrimary,
-                      focusColor: ICAppTextColorSecondary,
-                      onChanged: (value) => someThing(value),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.only(top: 8),
+            //   color: whiteColor,
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: 8),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Row(
+            //           children: [
+            //             Image.asset(ICVisaCardImg, height: 40, width: 40),
+            //             16.width,
+            //             Text('**** **** *123',
+            //                 style: TextStyle(color: ICAppTextColorPrimary)),
+            //           ],
+            //         ),
+            //         Radio(
+            //             value: 0,
+            //             groupValue: _radioVal,
+            //             activeColor: ICColorPrimary,
+            //             onChanged: (value) => someThing(value)),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   margin: EdgeInsets.only(top: 8),
+            //   color: whiteColor,
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: 8),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Row(
+            //           children: [
+            //             Image.asset(ICMasterCardImg, height: 40, width: 40),
+            //             16.width,
+            //             Text('**** **** *333',
+            //                 style: TextStyle(color: ICAppTextColorPrimary)),
+            //           ],
+            //         ),
+            //         Radio(
+            //           value: 1,
+            //           groupValue: _radioVal,
+            //           activeColor: ICColorPrimary,
+            //           focusColor: ICAppTextColorSecondary,
+            //           onChanged: (value) => someThing(value),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Container(
               width: MediaQuery.of(context).size.width,
               margin: EdgeInsets.only(top: 8),
               color: whiteColor,
               child: Padding(
                   padding: EdgeInsets.all(16),
-                  child: Text('Payment in case',
+                  child: Text(textPay,
                       style: TextStyle(color: ICAppTextColorPrimary))),
             ),
           ],
@@ -670,5 +712,197 @@ class _ICBookAppointmentScreenState extends State<ICBookAppointmentScreen> {
         ),
       ),
     );
+  }
+
+  void checkIfNativePayReady() async {
+    print('started to check if native pay ready');
+    bool deviceSupportNativePay = await StripePayment.deviceSupportsNativePay();
+    bool isNativeReady = await StripePayment.canMakeNativePayPayments(
+        ['american_express', 'visa', 'maestro', 'master_card']);
+    deviceSupportNativePay && isNativeReady
+        ? createPaymentMethodNative()
+        : createPaymentMethod();
+  }
+
+  Future<void> createPaymentMethodNative() async {
+    print('started NATIVE payment...');
+    StripePayment.setStripeAccount(null);
+    double totalCost = getPayment();
+    totalCost = (totalCost / 220);
+    tax = ((totalCost * taxPercent) * 100).ceil() / 100;
+    print("totalbill is ${totalCost.toString()}");
+    List<ApplePayItem> items = [];
+    items.add(ApplePayItem(
+      label: 'Product Price',
+      amount: totalCost.toString(),
+    ));
+    if (taxPercent != 0.0) {
+      tax = ((totalCost * taxPercent) * 100).ceil() / 100;
+      items.add(ApplePayItem(
+        label: 'Tax',
+        amount: tax.toString(),
+      ));
+    }
+    items.add(ApplePayItem(
+      label: 'Almadina color leb',
+      amount: (totalCost + tax).toString(),
+    ));
+    amount = ((totalCost + tax) * 100).toInt();
+    print('amount in pence/cent which will be charged = $amount');
+    //step 1: add card
+    PaymentMethod paymentMethod = PaymentMethod();
+    Token token = await StripePayment.paymentRequestWithNativePay(
+      androidPayOptions: AndroidPayPaymentRequest(
+        totalPrice: (totalCost + tax).toStringAsFixed(2),
+        currencyCode: 'GBP',
+      ),
+      applePayOptions: ApplePayPaymentOptions(
+        countryCode: 'GB',
+        currencyCode: 'GBP',
+        items: items,
+      ),
+    );
+    paymentMethod = await StripePayment.createPaymentMethod(
+      PaymentMethodRequest(
+        card: CreditCard(
+          token: token.tokenId,
+        ),
+      ),
+    );
+    paymentMethod != null
+        ? processPaymentAsDirectCharge(paymentMethod)
+        : showDialog(
+            context: context,
+            builder: (BuildContext context) => ShowDialogToDismiss(
+                title: 'Error',
+                content:
+                    'It is not possible to pay with this card. Please try again with a different card',
+                buttonText: 'CLOSE'));
+  }
+
+  Future<void> createPaymentMethod() async {
+    StripePayment.setStripeAccount(null);
+    double totalCost = getPayment();
+    tax = ((totalCost * taxPercent) * 100).ceil() / 100;
+    amount = ((tax + totalCost)).toInt();
+    print('amount in pence/cent which will be charged at card = $amount');
+    //add card
+    PaymentMethod paymentMethod = PaymentMethod();
+    paymentMethod = await StripePayment.paymentRequestWithCardForm(
+      CardFormPaymentRequest(),
+    ).then((PaymentMethod paymentMethod) {
+      return paymentMethod;
+    }).catchError((e) {
+      print('Error Card: ${e.toString()}');
+    });
+    paymentMethod != null
+        ? processPaymentAsDirectCharge(paymentMethod)
+        : showDialog(
+            context: context,
+            builder: (BuildContext context) => ShowDialogToDismiss(
+                  title: 'Error',
+                  content:
+                      'It is not possible to pay with this card. Please try again with a different card',
+                  buttonText: 'CLOSE',
+                ));
+  }
+
+  Future<void> processPaymentAsDirectCharge(PaymentMethod paymentMethod) async {
+    setState(() {
+      showSpinner = true;
+    });
+    // request to create PaymentIntent, attempt to confirm the payment & return PaymentIntent
+    amount = amount;
+    print("amount in  processPaymentAsDirectCharge is $amount");
+    final http.Response response = await http.post(
+        "$paymentUrl?amount=$amount&currency=GBP&paym=${paymentMethod.id}");
+    print("Now i decode");
+    print(jsonDecode(response.body));
+    if (response.body != null && response.body != "error") {
+      // print(jsonDecode(response.body));
+      final paymentIntentX = jsonDecode(response.body);
+      final status = paymentIntentX['paymentIntent']['status'];
+      final strAccount = paymentIntentX['stripeAccount'];
+      //check if payment was succesfully confirmed
+      if (status == 'succeeded') {
+        //payment was confirmed by the server without need for futher authentification
+        StripePayment.completeNativePayRequest();
+        setState(() {
+          textPay =
+              'payment completed.${paymentIntentX['paymentIntent']['amount'].toString()}p succesfully charged';
+          showSpinner = false;
+        });
+      } else {
+        // there is a need to authenticate
+        StripePayment.setStripeAccount(strAccount);
+
+        await StripePayment.confirmPaymentIntent(PaymentIntent(
+          clientSecret: paymentIntentX['paymentIntent']['client_secret'],
+          paymentMethodId: paymentIntentX['paymentIntent']['payment_method'],
+        )).then(
+          (value) async {
+            //This code will be executed if the authentication is successful
+            //request the server to confirm the payment with
+            final statusFinal = value.status;
+            if (statusFinal == 'succeeded') {
+              StripePayment.completeNativePayRequest();
+              setState(() {
+                showSpinner = false;
+              });
+            } else if (statusFinal == 'processing') {
+              StripePayment.cancelNativePayRequest();
+              setState(() {
+                showSpinner = false;
+              });
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => ShowDialogToDismiss(
+                      title: 'Warning',
+                      content:
+                          'Unknown Case The payment is still in \'processing\' state. This is unusual. Please contact us',
+                      buttonText: 'CLOSE'));
+            } else {
+              StripePayment.cancelNativePayRequest();
+              setState(() {
+                showSpinner = false;
+              });
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => ShowDialogToDismiss(
+                      title: 'Error',
+                      content:
+                          'There was an error to confirm the payment. Details: $statusFinal',
+                      buttonText: 'CLOSE'));
+            }
+          },
+          //If Authentication fails, a PlatformException will be raised which can be handled here
+        ).catchError((e) {
+          StripePayment.cancelNativePayRequest();
+          setState(() {
+            showSpinner = false;
+          });
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => ShowDialogToDismiss(
+                  title: 'Error',
+                  content:
+                      'Case B1 There was an error to confirm the payment. Please try again with another card',
+                  buttonText: 'CLOSE'));
+        });
+      }
+    } else {
+      // Case A
+      StripePayment.cancelNativePayRequest();
+      setState(() {
+        showSpinner = false;
+      });
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => ShowDialogToDismiss(
+              title: 'Error',
+              content:
+                  'Case A There was an error to confirm the payment. Please try again with another card',
+              buttonText: 'CLOSE'));
+    }
   }
 }

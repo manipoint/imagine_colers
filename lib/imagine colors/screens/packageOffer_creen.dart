@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:imagine_colers/imagine%20colors/helper/loading.dart';
 import 'package:imagine_colers/imagine%20colors/model/ic_model.dart';
+import 'package:imagine_colers/imagine%20colors/providers/auth_provider.dart';
+import 'package:imagine_colers/imagine%20colors/providers/product_provider.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_constent.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_dataProvider.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_images.dart';
 import 'package:imagine_colers/main%20util/utils/AppWidget.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
 import 'bookAppointment_screen.dart';
 
@@ -27,6 +31,8 @@ class _ICPackageOfferScreenState extends State<ICPackageOfferScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<AuthProvider>(context);
+    final productProvider = Provider.of<ICProductProviders>(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -162,7 +168,7 @@ class _ICPackageOfferScreenState extends State<ICPackageOfferScreen> {
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 16),
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: includeServiceList.length,
+                    itemCount: productProvider.products.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(bottom: 16),
@@ -178,14 +184,26 @@ class _ICPackageOfferScreenState extends State<ICPackageOfferScreen> {
                         ),
                         child: Row(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
+                            GestureDetector(
+                              onTap: () async {
+                                bool success = await userProvider.addToChekout(
+                                  product: productProvider.products[index],
+                                );
+                                if (success) {
+                                  Loading();
+                                  userProvider.reloadUserModel();
+                                  ICBookAppointmentScreen().launch(context);
+                                }
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                ),
+                                child: commonCacheImageWidget(
+                                    productProvider.products[index].picture, 80,
+                                    width: 80, fit: BoxFit.cover),
                               ),
-                              child: commonCacheImageWidget(
-                                  includeServiceList[index].serviceImg, 80,
-                                  width: 80, fit: BoxFit.cover),
                             ),
                             8.width,
                             8.width,
@@ -231,14 +249,17 @@ class _ICPackageOfferScreenState extends State<ICPackageOfferScreen> {
                     child: RaisedButton(
                       padding: EdgeInsets.all(12),
                       onPressed: () {
-                        
                         ICBookAppointmentScreen().launch(context);
                       },
                       color: ICColorPrimary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: Text(ICBtnBookAppointment, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                      child: Text(ICBtnBookAppointment,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ],

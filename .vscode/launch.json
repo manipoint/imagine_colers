@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "imagine_colers (Flutter)",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}

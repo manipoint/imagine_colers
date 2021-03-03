@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:imagine_colers/imagine%20colors/helper/constent.dart';
+import 'package:imagine_colers/imagine%20colors/model/chekout_model.dart';
 import 'package:imagine_colers/imagine%20colors/model/user_model.dart';
 
 class UserServices {
@@ -23,4 +25,15 @@ class UserServices {
       firebaseFirestore.collection(users).doc(id).get().then((doc) {
         return UserModel.fromSnapshot(doc);
       });
+      void addToChekout({String userId, ChekoutModel chekoutItem}){
+    firebaseFirestore.collection(users).doc(userId).update({
+      "chekout": FieldValue.arrayUnion([chekoutItem.toMap()])
+    });
+  }
+
+  void removeFromChekout({String userId, ChekoutModel chekoutItem}){
+   firebaseFirestore.collection(users).doc(userId).update({
+      "chekout": FieldValue.arrayRemove([chekoutItem.toMap()])
+    });
+  }
 }

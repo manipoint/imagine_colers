@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imagine_colers/imagine%20colors/providers/auth_provider.dart';
 import 'package:imagine_colers/imagine%20colors/providers/product_provider.dart';
+import 'package:imagine_colers/imagine%20colors/providers/spacialist_provider.dart';
 import 'package:imagine_colers/imagine%20colors/screens/detail_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/notification_screen.dart';
 import 'package:imagine_colers/imagine%20colors/screens/spacialist_screen.dart';
@@ -13,6 +14,8 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:imagine_colers/imagine%20colors/model/ic_model.dart';
 import 'package:imagine_colers/imagine%20colors/utilitis/ic_Colors.dart';
 import 'package:provider/provider.dart';
+
+import 'allProduct_screen.dart';
 
 class ICDiscoverScreen extends StatefulWidget {
   @override
@@ -38,6 +41,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<AuthProvider>(context);
     final productProvider = Provider.of<ICProductProviders>(context);
+    final specialistProvider = Provider.of<IcSpecialistProvider>(context);
     return Scaffold(
       body: Container(
         child: SingleChildScrollView(
@@ -143,7 +147,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                           fontWeight: FontWeight.bold)),
                   GestureDetector(
                     onTap: () {
-                      sendTextData(context);
+                      sendTextProductData(context);
                     },
                     child: Text(ICTxtViewAll,
                         style: TextStyle(
@@ -239,7 +243,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    ICTxtBoardSpecialLists,
+                    "Specislists",
                     style: TextStyle(
                         fontSize: 16,
                         color: ICAppTextColorPrimary,
@@ -247,7 +251,7 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      sendTextData(context);
+                      sendTextSpecialistData(context);
                     },
                     child: Text(
                       ICTxtViewAll,
@@ -260,11 +264,11 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                 ],
               ),
               Container(
-                height: 250,
+                height: MediaQuery.of(context).size.height/3,
                 child: ListView.builder(
                   padding: EdgeInsets.fromLTRB(0, 8, 16, 8),
                   scrollDirection: Axis.horizontal,
-                  itemCount: bestNewList.length,
+                  itemCount: specialistProvider.products.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
@@ -285,8 +289,10 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                               ),
                               child: Container(
                                 child: commonCacheImageWidget(
-                                    bestNewList[index].img, 160,
-                                    width: 140, fit: BoxFit.cover),
+                                    specialistProvider.products[index].picture,
+                                    180,
+                                    width: 160,
+                                    fit: BoxFit.cover),
                               ),
                             ),
                             8.height,
@@ -296,20 +302,27 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    bestNewList[index].title,
+                                    specialistProvider.products[index].name,
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: ICAppTextColorPrimary,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   4.height,
-                                  Text(
-                                    bestNewList[index].subTitle,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ICAppTextColorSecondary,
+                                  for (int i = 0;
+                                      i <
+                                          specialistProvider.products[index]
+                                              .profession.length;
+                                      i++)
+                                    Text(
+                                      specialistProvider
+                                          .products[index].profession[i]
+                                          .toString(),
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: ICAppTextColorSecondary,
+                                      ),
                                     ),
-                                  ),
                                 ],
                               ),
                             )
@@ -399,9 +412,9 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
     );
   }
 
-  void sendTextData(BuildContext context) {
+  void sendTextProductData(BuildContext context) {
     String textData = 'All Products';
-    ICSpecialListViewAllScreen(
+    ICProductViewAllScreen(
       specialList: textData,
     ).launch(context);
   }
@@ -410,6 +423,13 @@ class _ICDiscoverScreenState extends State<ICDiscoverScreen> {
     String sendOfferText = 'Special Offer';
     ICSpecialOfferViewAllScreen(
       offerData: sendOfferText,
+    ).launch(context);
+  }
+
+  void sendTextSpecialistData(BuildContext context) {
+    String textData = 'All Specialists';
+    ICSpecialListViewAllScreen(
+      specialList: textData,
     ).launch(context);
   }
 }
