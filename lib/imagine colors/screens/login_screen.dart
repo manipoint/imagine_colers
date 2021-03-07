@@ -131,7 +131,7 @@ class _ICLoginScreenState extends State<ICLoginScreen> {
                             width: MediaQuery.of(context).size.width,
                             child: RaisedButton(
                               padding: EdgeInsets.all(12),
-                             onPressed: () async {
+                              onPressed: () async {
                                 if (!await authProvider.logIn()) {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
@@ -159,11 +159,13 @@ class _ICLoginScreenState extends State<ICLoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               //Image.asset(ICTwitterIcon, height: 40, width: 40),
-                              Image.asset(
-                                ICTwitterIcon,
-                                height: 40,
-                                width: 40,
-                                fit: BoxFit.fill,
+                              InkWell(
+                                child: Image.asset(
+                                  ICTwitterIcon,
+                                  height: 40,
+                                  width: 40,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                               Image.asset(
                                 ICFacebookIcon,
@@ -171,11 +173,26 @@ class _ICLoginScreenState extends State<ICLoginScreen> {
                                 width: 50,
                                 fit: BoxFit.cover,
                               ),
-                              Image.asset(
-                                ICGoogleIcon,
-                                height: 40,
-                                width: 40,
-                                fit: BoxFit.fill,
+                              InkWell(
+                                onTap: () async {
+                                  if (!await authProvider.logInWitGoogle()) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text("Login Failed"),
+                                    ));
+                                    return;
+                                  }
+                                  //authProvider.clearController();
+                                  Loading();
+                                  finish(context);
+                                  ICDashedBoardScreen().launch(context);
+                                },
+                                child: Image.asset(
+                                  ICGoogleIcon,
+                                  height: 40,
+                                  width: 40,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
 
                               //Image.asset(ICFacebookIcon, height: 40, width: 40),

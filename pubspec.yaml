@@ -31,9 +31,10 @@ dependencies:
   uuid: ^2.2.2
   google_fonts: ^1.1.1
   google_maps_flutter: 0.5.21+3 
+  google_sign_in:
   flutter_statusbarcolor: 0.2.3
   clustering_google_maps: ^0.1.2
-  #integration_test: ^1.0.1
+  # integration_test:
   intl: ^0.16.1
   modal_progress_hud: ^0.1.3
   dots_indicator: ^0.0.4
